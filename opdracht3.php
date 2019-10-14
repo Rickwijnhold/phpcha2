@@ -9,7 +9,7 @@
         text-align: center;
         font-family: Arial;
         font-weight: bold;
-        font-size: 30px;
+        font-size: 28px;
     }
     li {
         color: #ff8400;
