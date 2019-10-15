@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Opdracht 2</title>
+    <title>Opdracht 3</title>
 </head>
 <style>
     body{
@@ -33,7 +33,6 @@ $apen = $dbh->query('SELECT * from aap');
     foreach ($apen as $aap) {
         echo "<li>".$aap['idaap']." - ".$aap['soort']."</li>";
     }
-
     ?>
 </ul>
 

@@ -30,7 +30,7 @@ $leefgebied = $dbh->query('SELECT * from leefgebied');
 if (isset($_GET['idleefgebied'])) {
     $idleefgebied = $_GET['idleefgebied'];
     $omschrijving = $_GET['omschrijving'];
-    $sql = "insert into leefgebied (idleefgebied, omschrijving ) values ( '$idleefgebied', $omschrijving)";
+    $sql = "insert into leefgebied (idleefgebied, omschrijving ) values ( $idleefgebied, '$omschrijving')";
     $dbh->query($sql);
 }
 $leefgebied = $dbh->query('SELECT * from leefgebied');
