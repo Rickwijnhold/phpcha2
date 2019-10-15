@@ -25,11 +25,12 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 $dbh = new PDO('mysql:host=localhost;port=3306;dbname=apen', 'root', 'almere77!');
-$leefgebied = $dbh->query('SELECT omschrijving from leefgebied');
+$leefgebied = $dbh->query('SELECT * from leefgebied');
 
-if (isset($_GET['omschrijving'])) {
+if (isset($_GET['idleefgebied'])) {
+    $idleefgebied = $_GET['idleefgebied'];
     $omschrijving = $_GET['omschrijving'];
-    $sql = "insert into leefgebied (omschrijving) values ($omschrijving)";
+    $sql = "insert into leefgebied (idleefgebied, omschrijving ) values ( '$idleefgebied', $omschrijving)";
     $dbh->query($sql);
 }
 $leefgebied = $dbh->query('SELECT * from leefgebied');
@@ -37,12 +38,13 @@ $leefgebied = $dbh->query('SELECT * from leefgebied');
 <ul>
     <?php
     foreach ($leefgebied as $leef) {
-        echo "<li>".$leef['omschrijving']."</li>";
+        echo "<li>".$leef['idleefgebied']." - ".$leef['omschrijving']."</li>";
     }
     ?>
 </ul>
 
 <form action="opdracht5.php" method="get">
+    ID<input  type="text" name="idleefgebied">
     Leefgebied <input  type="text" name="omschrijving">
     <input type="submit">
 </form>
