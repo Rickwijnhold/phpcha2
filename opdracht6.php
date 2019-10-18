@@ -25,18 +25,27 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 $dbh = new PDO('mysql:host=localhost;port=3306;dbname=apen', 'root', 'almere77!');
-$leefgebied = $dbh->query('SELECT * from leefgebied');
-$apen = $dbh->query('SELECT * from aap');
+
+if(isset($_GET['idleefgebied'])) {
+    echo "idleefgebied is: ". $_GET['idleefgebied']."<br>";
+    echo "omschrijving is: ". $_GET['omschrijving']."<br>";
+    $sql = "insert into leefgebied (idleefgebied, omschrijving) values (:idleefgebied, :omschrijving)";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute([":idleefgebied" => $_GET['idleefgebied'], ":omschrijving" => $_GET['omschrijving']]);
+    //echo $sql;
+}
+
+$sql = "select omschrijving, soort from leefgebied 
+join aap_has_leefgebied on aap_has_leefgebied.idleefgebied = leefgebied.idleefgebied
+join aap on aap.idaap = aap_has_leefgebied.idaap";
+$resultaat = $dbh->query($sql);
 
 ?>
 <ul>
     <?php
-    foreach ($leefgebied as $leef) {
-        echo "<li>".$leef['idleefgebied']." - ".$leef['omschrijving']."</li>";
-    }
-    foreach ($apen as $aap) {
-        echo "<li class='tabel'>".$aap['idaap']." - ".$aap['soort']."</li>";
-    }
+    foreach ($resultaat as $row) {
+    print "<li>".$row['omschrijving'] . " - ".$row['soort'];
+        }
     ?>
 </ul>
 
